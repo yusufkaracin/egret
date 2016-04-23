@@ -24,28 +24,22 @@
       <div class="navbar navbar-default" role="navigation">
         <div class="container">
           <div class="navbar-header">
-
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
               <span class="sr-only">Toggle navigation</span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-
             <a class="navbar-brand" href="#/">salihcandusmez</a>
           </div>
-
           <div class="collapse navbar-collapse" id="js-navbar-collapse">
-
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="#/">Home</a></li>
-              <!-- //angularfire -->
-              <li><a ng-href="#/chat">chat</a></li>
-              <li>
-              <a ng-hide-auth="" href="#/login">log in</a>
-              <a ng-show-auth="" href="#/account">account</a>
-            </li>
-
+            <ul class="nav navbar-nav" ng-controller="NavbarCtrl">
+              <li ng-class="{ active: isActive('/')}"><a href="#/">Home</a></li>
+              <li ng-class="{ active: isActive('/chat')}"><a ng-href="#/chat">chat</a></li>
+              <li ng-class="{ active: isActive('/login')}">
+                <a ng-hide-auth="" href="#/login">log in</a>
+                <a ng-show-auth="" href="#/account">account</a>
+              </li>
             </ul>
           </div>
         </div>
@@ -102,5 +96,8 @@
         <script src="scripts/directives/ngHideAuth.js"></script>
         <script src="scripts/routes.js"></script>
         <!-- endbuild -->
+        <!-- start -->
+        <script src="scripts/controllers/navbar.js"></script>
+        
 </body>
 </html>
