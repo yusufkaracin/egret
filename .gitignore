@@ -29,9 +29,10 @@ sftp-config.json
 *.swp
 *.swo
 
-# npm
-node_modules/
-bower_components/
 
 # Compass
 .sass-cache
+
+bower_components/
+
+node_modules/
