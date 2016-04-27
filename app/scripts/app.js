@@ -15,5 +15,7 @@ angular.module('salihcandusmezApp', [
     'ngSanitize',
     'firebase',
     'firebase.ref',
-    'firebase.auth'
+    'firebase.auth',
+    'toaster',
+    'angular-loading-bar'
   ]);
