@@ -77,6 +77,11 @@ angular.module('salihcandusmezApp')
       .otherwise({redirectTo: '/'});
   }])
 
+  // angular loading bar spinner off
+  .config(['cfpLoadingBarProvider', function(cfpLoadingBarProvider) {
+    cfpLoadingBarProvider.includeSpinner = false;
+  }])
+
   /**
    * Apply some route security. Any route's resolve method can reject the promise with
    * "AUTH_REQUIRED" to force a redirect. This method enforces that and also watches
@@ -84,7 +89,13 @@ angular.module('salihcandusmezApp')
    * that we can no longer view.
    */
   .run(['$rootScope', '$location', 'Auth', 'SECURED_ROUTES', 'loginRedirectPath',
-    function($rootScope, $location, Auth, SECURED_ROUTES, loginRedirectPath) {
+    function($rootScope, $location, Auth, SECURED_ROUTES, loginRedirectPath) {  
+      function check(user) {
+        if( !user && authRequired($location.path()) ) {
+          $location.path(loginRedirectPath);
+        }
+      }
+
       // watch for login status changes and redirect if appropriate
       Auth.$onAuth(check);
 
@@ -96,11 +107,7 @@ angular.module('salihcandusmezApp')
         }
       });
 
-      function check(user) {
-        if( !user && authRequired($location.path()) ) {
-          $location.path(loginRedirectPath);
-        }
-      }
+      
 
       function authRequired(path) {
         return SECURED_ROUTES.hasOwnProperty(path);

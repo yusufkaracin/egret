@@ -8,6 +8,13 @@
  */
 angular.module('salihcandusmezApp')
   .controller('ChatCtrl', function ($scope, Ref, $firebaseArray, $timeout) {
+    function alert(msg) {
+      $scope.err = msg;
+      $timeout(function() {
+        $scope.err = null;
+      }, 5000);
+    }
+
     // synchronize a read-only, synchronized array of messages, limit to most recent 10
     $scope.messages = $firebaseArray(Ref.child('messages').limitToLast(10));
 
@@ -24,10 +31,4 @@ angular.module('salihcandusmezApp')
       }
     };
 
-    function alert(msg) {
-      $scope.err = msg;
-      $timeout(function() {
-        $scope.err = null;
-      }, 5000);
-    }
   });

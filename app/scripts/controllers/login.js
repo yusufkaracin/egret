@@ -16,6 +16,22 @@ angular.module('salihcandusmezApp')
     };
 
     $scope.createAccount = function(email, pass, confirm) {
+      
+      function createProfile(user) {
+        var ref = Ref.child('users').child(user.uid), def = $q.defer();
+        ref.set({email: email, name: firstPartOfEmail(email)}, function(err) {
+          $timeout(function() {
+            if( err ) {
+              def.reject(err);
+            }
+            else {
+              def.resolve(ref);
+            }
+          });
+        });
+        return def.promise;
+      }
+
       $scope.err = null;
       if( !pass ) {
         $scope.err = 'Please enter a password';
@@ -33,20 +49,6 @@ angular.module('salihcandusmezApp')
           .then(redirect, showError);
       }
 
-      function createProfile(user) {
-        var ref = Ref.child('users').child(user.uid), def = $q.defer();
-        ref.set({email: email, name: firstPartOfEmail(email)}, function(err) {
-          $timeout(function() {
-            if( err ) {
-              def.reject(err);
-            }
-            else {
-              def.resolve(ref);
-            }
-          });
-        });
-        return def.promise;
-      }
     };
 
     function firstPartOfEmail(email) {
