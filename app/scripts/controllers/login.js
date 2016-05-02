@@ -15,11 +15,11 @@ angular.module('salihcandusmezApp')
       );
     };
 
-    $scope.createAccount = function(email, pass, confirm) {
-      
+    $scope.createAccount = function(email, pass, confirm, userName) {
+      console.log(userName);
       function createProfile(user) {
         var ref = Ref.child('users').child(user.uid), def = $q.defer();
-        ref.set({email: email, name: firstPartOfEmail(email)}, function(err) {
+        ref.set({email: email, userName: userName, firstName:'', lastName: ''}, function(err) {
           $timeout(function() {
             if( err ) {
               def.reject(err);
@@ -40,7 +40,7 @@ angular.module('salihcandusmezApp')
         $scope.err = 'Passwords do not match';
       }
       else {
-        Auth.$createUser({email: email, password: pass})
+        Auth.$createUser({email: email, password: pass, userName: userName})
           .then(function () {
             // authenticate so we have permission to write to Firebase
             return Auth.$authWithPassword({email: email, password: pass}, {rememberMe: true});
