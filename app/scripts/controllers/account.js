@@ -7,9 +7,9 @@
  * Provides rudimentary account management functions.
  */
 angular.module('salihcandusmezApp')
-  .controller('AccountCtrl', function ($scope, user, Auth, Ref, $firebaseObject, $timeout) {
+  .controller('AccountCtrl', function ($scope, user, Auth, Ref, $firebaseObject, toaster, $timeout) {
     $scope.user = user;
-    $scope.logout = function() { Auth.$unauth(); };
+    
     $scope.messages = [];
     var profile = $firebaseObject(Ref.child('users/'+user.uid));
     profile.$bindTo($scope, 'profile');
@@ -18,15 +18,15 @@ angular.module('salihcandusmezApp')
     $scope.changePassword = function(oldPass, newPass, confirm) {
       $scope.err = null;
       if( !oldPass || !newPass ) {
-        error('Please enter all fields');
+        error('Lütfen tüm alanları doldurun');
       }
       else if( newPass !== confirm ) {
-        error('Passwords do not match');
+        error('Şifreler eşleşmiyor');
       }
       else {
         Auth.$changePassword({email: profile.email, oldPassword: oldPass, newPassword: newPass})
           .then(function() {
-            success('Password changed');
+            success('Şifre güncellendi');
           }, error);
       }
     };
@@ -37,13 +37,13 @@ angular.module('salihcandusmezApp')
         .then(function() {
           profile.email = newEmail;
           profile.$save();
-          success('Email changed');
+          success('Email güncellendi');
         })
         .catch(error);
     };
 
     function error(err) {
-      alert(err, 'danger');
+      alert(err, 'error');
     }
 
     function success(msg) {
@@ -51,11 +51,17 @@ angular.module('salihcandusmezApp')
     }
 
     function alert(msg, type) {
+      toaster.pop(type, msg);
+      /*
       var obj = {text: msg+'', type: type};
       $scope.messages.unshift(obj);
+      */
+      
+      /*
       $timeout(function() {
         $scope.messages.splice($scope.messages.indexOf(obj), 1);
       }, 10000);
+      */
     }
 
   });
