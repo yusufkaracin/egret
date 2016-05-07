@@ -7,19 +7,23 @@
  * Manages authentication to any active providers.
  */
 angular.module('salihcandusmezApp')
-  .controller('LoginCtrl', function ($scope, Auth, $location, $q, Ref, $timeout) {
-    $scope.passwordLogin = function(email, pass) {
+  .controller('LoginCtrl', function ($scope, Auth, $location, $q, Ref, $timeout, toaster) {
+
+    var register = false;
+
+    $scope.passwordLogin = function(email, pass, rememberMe) {
       $scope.err = null;
-      Auth.$authWithPassword({email: email, password: pass}, {rememberMe: true}).then(
+      Auth.$authWithPassword({email: email, password: pass}, {rememberMe: rememberMe}).then(
         redirect, showError
       );
     };
 
     $scope.createAccount = function(email, pass, confirm, userName) {
+      register = true;
       console.log(userName);
       function createProfile(user) {
         var ref = Ref.child('users').child(user.uid), def = $q.defer();
-        ref.set({email: email, userName: userName, firstName:'', lastName: ''}, function(err) {
+        ref.set({email: email, userName: userName, name:""}, function(err) {
           $timeout(function() {
             if( err ) {
               def.reject(err);
@@ -65,11 +69,17 @@ angular.module('salihcandusmezApp')
   
 
     function redirect() {
-      $location.path('/account');
+      if(register) {
+        toaster.pop('success', "Hoşgeldin", "Kayıt gerçekleşti");
+      } else {
+        toaster.pop('success', "Hoşgeldin", "Giriş Başarılı");
+      }
+      $location.path('/boards');
     }
 
     function showError(err) {
       $scope.err = err;
+      toaster.pop('danger', "Hata", err);
     }
 
 

@@ -74,6 +74,10 @@ angular.module('salihcandusmezApp')
         templateUrl: 'views/account.html',
         controller: 'AccountCtrl'
       })
+      .whenAuthenticated('/boards', {
+        templateUrl: 'views/boards.html',
+        controller: 'BoardsCtrl'
+      })
       .otherwise({redirectTo: '/'});
   }])
 

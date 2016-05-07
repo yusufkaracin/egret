@@ -1,3 +1,19 @@
 body {
-  @include background-radial(#0fb8ad, 0%, #1fc8db, 100%);
+  background-image: url('../../images/bg-header-star.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+.board {
+  .panel {
+    cursor: pointer;
+    &:hover {
+      // @include box-shadow(10px,15px,20px,#333);
+      // @include transition();
+    }
+  }
 }

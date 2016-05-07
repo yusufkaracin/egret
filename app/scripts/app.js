@@ -17,5 +17,6 @@ angular.module('salihcandusmezApp', [
     'firebase.ref',
     'firebase.auth',
     'toaster',
-    'angular-loading-bar'
+    'angular-loading-bar',
+    'datePicker'
   ]);

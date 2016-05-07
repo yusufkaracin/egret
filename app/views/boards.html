@@ -1,0 +1,65 @@
+
+<div class="board">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-3">
+        <div class="panel panel-default" data-toggle="modal" data-target="#myModal" type="button">
+          <div class="panel-body text-center">
+            <i class="fa fa-plus fa-3x"></i>
+            <br> Yeni Proje Oluştur
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<pre>
+{{gelenler | json}}
+</pre>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form name="frm" ng-submit="createNewProject(params)">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel">Yeni Proje Oluştur</h4>
+        </div>
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="projectName">Proje Adı</label>
+            <input type="text" class="form-control" name="projectName" ng-model="params.projectName" id="projectName" placeholder="Proje adını giriniz" required>
+          </div>
+          <div class="form-group">
+            <label for="projectDesc">Proje Açıklaması</label>
+            <textarea name="projectDesc" id="projectDesc" ng-model="params.projectDesc" rows="2" class="form-control" required>
+            </textarea>
+          </div>
+          <div class="form-group">
+            <label for="projectMembers"></label>
+            <select id="projectMembers" name="projectMembers" multiple 
+            ng-options="item.email as item.name for item in users" class="form-control" ng-model="params.members" required></select>
+          </div>
+          <div class="form-group">
+            <label for="projectDate"></label>
+            <div date-picker="dates.today" timezone="{{timezone[1]}}" view="mount" min-view="hours" watch-direct-changes="true" ng-model="params.projectDate" required></div>           
+          </div>
+          <!-- <div class="checkbox">
+            <label>
+              <input type="checkbox"> Check me out {{projectDate}}
+            </label>
+          </div>   -->      
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">İptal</button>
+          <button type="submit" ng-disabled="frm.$invalid" class="btn btn-primary">Oluştur</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+  $('button[type=submit]').click(function () {
+    $('#myModal').modal('hide');
+  })
+</script>

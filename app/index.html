@@ -10,6 +10,7 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/AngularJS-Toaster/toaster.css" />
     <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
+    <link rel="stylesheet" href="bower_components/angular-datepicker/dist/angular-datepicker.css" />
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
@@ -36,20 +37,38 @@
           </div>
           <div class="collapse navbar-collapse" id="js-navbar-collapse"  ng-controller="NavbarCtrl">
             <ul class="nav navbar-nav">
-              <li ng-class="{ active: isActive('/')}"><a href="#/">Home</a></li>
+              <li ng-hide-auth="" ng-class="{ active: isActive('/')}"><a href="#/">Home</a></li>
               <li ng-class="{ active: isActive('/chat')}"><a ng-href="#/chat">chat</a></li>
+              
+              <li ng-show-auth="" ng-class="{ active: isActive('/boards')}">
+                <a href="#/boards">Boards</a>
+              </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-              <li ng-class="{ active: isActive('/login')}">
-                <a ng-hide-auth="" href="#/login"><span class="glyphicon glyphicon-user"></span></a>
-                <a ng-show-auth="" href="#/account">account</a>
+              <li ng-class="{ active: isActive('/login')}" ng-hide-auth="">
+                <a href="#/login"><span class="glyphicon glyphicon-user"></span></a>
+              </li>
+              <li class="dropdown" ng-show-auth="">
+                <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                  <span class="glyphicon glyphicon-user"></span>
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a ng-show-auth="" href="#/account" class="text-center">Profil</a>    
+                  </li>
+                  <li>
+                    <a role="button" href="#" ng-click="logout()" class="text-center makePreventDefault">
+                      Çıkış
+                    </a>
+                  </li>
+                </ul>
               </li>
             </ul>
           </div>
         </div>
       </div>
     </div>
-
     <div class="container">
       <toaster-container></toaster-container>
       <div ng-view=""></div>
@@ -80,6 +99,9 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/AngularJS-Toaster/toaster.js"></script>
     <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js"></script>
+    <script src="bower_components/angular-datepicker/dist/angular-datepicker.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -94,11 +116,13 @@
         <script src="scripts/angularfire/auth.js"></script>
         <script src="scripts/controllers/login.js"></script>
         <script src="scripts/controllers/account.js"></script>
+        <script src="scripts/controllers/boards.js"></script>
         <script src="scripts/directives/ngShowAuth.js"></script>
         <script src="scripts/directives/ngHideAuth.js"></script>
         <script src="scripts/routes.js"></script>
         <!-- endbuild -->
         <!-- start -->
+        <script src="scripts/jqueryMainSetting.js"></script>
         <script src="scripts/controllers/navbar.js"></script>
         
 </body>

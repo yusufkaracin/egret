@@ -22,8 +22,13 @@
         <p class="form-group">
           <input required name="pass" placeholder="password" type="password" ng-model="pass" class="form-control" />
         </p>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-init="rememberMe = true" ng-model="rememberMe" ng-checked="rememberMe"> Remember Me
+          </label>
+        </div>
         <p>
-          <button  class="btn btn-primary btn-block" ng-click="passwordLogin(email, pass)" ng-disabled="frm1.$invalid">  
+          <button  class="btn btn-primary btn-block" ng-click="passwordLogin(email, pass, rememberMe)" ng-disabled="frm1.$invalid">  
             Log In
           </button>
 
@@ -35,7 +40,7 @@
       <a href="" data-toggle="modal" data-target="#myModal"class="makePreventDefault btn btn-default pull-right">
         <span class="glyphicon glyphicon-question-sign"></span>
       </a>
-      <p ng-show="err" class="bg-danger">{{err}}</p>
+      <!-- <p ng-show="err" class="bg-danger">{{err}}</p> -->
     </div>
     <div role="tabpanel" class="tab-pane" id="profile">
       <h4 class="text-center">Welcome</h3>
