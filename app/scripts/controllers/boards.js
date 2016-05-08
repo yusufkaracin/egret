@@ -33,28 +33,24 @@ angular.module('salihcandusmezApp')
       .then(function (ref) {
 
         var userRef = $firebaseObject(Ref.child('users/' + user.uid));
-        /*
-        var userProjects = userRef.projects;
-
-        if (userProjects===undefined){
-          userRef.projects = [ref.key()]
-        } else {
-          userProjects.push(ref.key());
-        }*/
-        angular.forEach(userRef, function(key, value){
-          console.log(key +' '+ value);
-          //userRef.setAttribute(key, value)
-        });
-
-        userRef.$save().then(function(ref){
-          toaster.pop('success', 'Başarılı', 'Proje çok güzel oluştu');
-        }, function(err){
-          toaster.pop('error', 'Başarısız', 'Proje çok güzel oluşmadı');
-        });
         
+        userRef.$loaded().then(function(){
+          var userProjects = userRef.projects;
+
+          if (userProjects===undefined){
+            userRef.projects = [ref.key()]
+          } else {
+            userProjects.push(ref.key());
+          }
+          
+          userRef.$save().then(function(ref){
+            toaster.pop('success', 'Başarılı', 'Proje çok güzel oluştu');
+          }, function(err){
+            toaster.pop('error', 'Başarısız', 'Proje çok güzel oluşmadı');
+          });
+        });
         
       }).catch(function (ref) {
-
         toaster.pop('error', 'Başarısız', 'Proje çok güzel oluşturulamadı');
       });
 
