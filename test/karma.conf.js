@@ -31,9 +31,7 @@ module.exports = function(config) {
       'bower_components/angular-sanitize/angular-sanitize.js',
       'bower_components/AngularJS-Toaster/toaster.js',
       'bower_components/angular-loading-bar/build/loading-bar.js',
-      'bower_components/moment/moment.js',
-      'bower_components/moment-timezone/builds/moment-timezone-with-data-2010-2020.js',
-      'bower_components/angular-datepicker/dist/angular-datepicker.js',
+      'bower_components/angularjs-datepicker/dist/angular-datepicker.min.js',
       'bower_components/mockfirebase/browser/mockfirebase.js',
       'bower_components/angular-mocks/angular-mocks.js',
       // endbower

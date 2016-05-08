@@ -13,7 +13,7 @@
     "AngularJS-Toaster": "angularjs-toaster#~2.0.0",
     "angular-loading-bar": "^0.9.0",
     "font-awesome": "^4.6.2",
-    "angular-datepicker": "^2.0.3"
+    "angularjs-datepicker": "^2.1.0"
   },
   "devDependencies": {
     "mockfirebase": "0.11.0",

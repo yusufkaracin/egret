@@ -13,9 +13,7 @@
     </div>
   </div>
 </div>
-<pre>
-{{gelenler | json}}
-</pre>
+
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
@@ -35,14 +33,36 @@
             <textarea name="projectDesc" id="projectDesc" ng-model="params.projectDesc" rows="2" class="form-control" required>
             </textarea>
           </div>
+
           <div class="form-group">
-            <label for="projectMembers"></label>
-            <select id="projectMembers" name="projectMembers" multiple 
-            ng-options="item.email as item.name for item in users" class="form-control" ng-model="params.members" required></select>
+            <label for="projectMembers">
+              <i class="fa fa-users fa-fw"></i>
+              Proje Üyeleri
+            </label>
+
+            <select id="projectMembers" name="projectMembers" multiple
+            ng-options="item.email as item.name for item in users" class="form-control" ng-model="params.projectMembers" required></select>
           </div>
+
           <div class="form-group">
-            <label for="projectDate"></label>
-            <div date-picker="dates.today" timezone="{{timezone[1]}}" view="mount" min-view="hours" watch-direct-changes="true" ng-model="params.projectDate" required></div>           
+            <label for="projectStartDate">
+              <i class="fa fa-calendar fa-fw"></i>
+              Başlama Zamanı
+            </label>
+            <datepicker date-format="dd-MM-yyyy">
+              <input ng-model="params.projectStartDate" type="text" id="projectStartDate" class="form-control"/>
+            </datepicker>
+
+          </div>
+
+          <div class="form-group">
+            <label for="projectEndDate">Bitiş Zamanı</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></div>
+              <datepicker date-format="dd-MM-yyyy">
+                <input ng-model="params.projectEndDate" type="text" id="projectEndDate" class="form-control"/>
+              </datepicker>
+            </div>
           </div>
           <!-- <div class="checkbox">
             <label>
