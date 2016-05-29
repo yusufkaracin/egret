@@ -13,11 +13,33 @@ angular.module('salihcandusmezApp')
     var query = Ref.child('projects').orderByChild("owner").equalTo(user.uid);
     $scope.createdProjectsByUser = $firebaseObject(query);
 
+    var queryAllProjects = Ref.child('projects/');
+    queryAllProjects = $firebaseObject(queryAllProjects);
+
+    var userEmail = user.auth.token.email;
+    $scope.projectsByInUser = [];
+    queryAllProjects.$loaded()
+      .then(function(projects) {
+        angular.forEach(projects, function (value, key) {
+          var isUserInProject = (value.members.indexOf(userEmail) != -1);
+          var isUserProjectOwner = (value.owner == user.uid);
+
+          if (isUserInProject && !isUserProjectOwner) {
+            $scope.projectsByInUser.push(value);
+          }
+        })
+      })
+      .catch(function(error) {
+        console.log("Error:", error);
+      });
+
     // Bütün kullanıcıları çeker
     $scope.users = $firebaseObject(Ref.child('users'));
 
 
-    $scope.createNewProject = function (params) {
+
+    $scope.createNewProject = function (params)
+    {
 
       var projectInfo = {
         name: params.projectName,
@@ -29,39 +51,14 @@ angular.module('salihcandusmezApp')
       };
 
       var projects = $firebaseArray(Ref.child('projects/'));
+
       projects.$add(projectInfo)
-      .then(function (ref) {
-
-        var userRef = $firebaseObject(Ref.child('users/' + user.uid));
-        
-        userRef.$loaded().then(function(){
-          var userProjects = userRef.projects;
-
-          if (userProjects===undefined){
-            userRef.projects = [ref.key()]
-          } else {
-            userProjects.push(ref.key());
-          }
-          
-          userRef.$save().then(function(ref){
-            toaster.pop('success', 'Başarılı', 'Proje çok güzel oluştu');
-          }, function(err){
-            toaster.pop('error', 'Başarısız', 'Proje çok güzel oluşmadı');
-          });
-        });
-        
-      }).catch(function (ref) {
-        toaster.pop('error', 'Başarısız', 'Proje çok güzel oluşturulamadı');
+        .then(function (projectRef) {
+          toaster.pop('success', 'Başarılı', 'Proje çok güzel oluştu');
+      })
+        .catch(function (ref) {
+          toaster.pop('error', 'Başarısız', 'Proje çok güzel oluşturulamadı');
       });
-
-
-      // var project = projects.push();
-      // project.set(projectInfo, projectCreated)
-      // project.toString()
-
-        //return def.promise;
-      // toaster.pop('success', "Hoşgeldin", "Giriş Başarılı");
     }
   });
-
 

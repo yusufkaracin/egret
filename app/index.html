@@ -38,10 +38,10 @@
           <div class="collapse navbar-collapse" id="js-navbar-collapse"  ng-controller="NavbarCtrl">
             <ul class="nav navbar-nav">
               <li ng-hide-auth="" ng-class="{ active: isActive('/')}"><a href="#/">Home</a></li>
-              <li ng-class="{ active: isActive('/chat')}"><a ng-href="#/chat">chat</a></li>
+              <li ng-class="{ active: isActive('/chat')}"><a ng-href="#/chat">Sohbet</a></li>
               
               <li ng-show-auth="" ng-class="{ active: isActive('/boards')}">
-                <a href="#/boards">Boards</a>
+                <a href="#/boards">Projeler</a>
               </li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -118,6 +118,7 @@
         <script src="scripts/directives/ngShowAuth.js"></script>
         <script src="scripts/directives/ngHideAuth.js"></script>
         <script src="scripts/routes.js"></script>
+        <script src="scripts/controllers/boarddetail.js"></script>
         <!-- endbuild -->
         <!-- start -->
         <script src="scripts/jqueryMainSetting.js"></script>

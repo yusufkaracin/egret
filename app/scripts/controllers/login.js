@@ -23,7 +23,7 @@ angular.module('salihcandusmezApp')
       console.log(userName);
       function createProfile(user) {
         var ref = Ref.child('users').child(user.uid), def = $q.defer();
-        ref.set({email: email, userName: userName, name:""}, function(err) {
+        ref.set({email: email, userName: userName, name:firstPartOfEmail(email)}, function(err) {
           $timeout(function() {
             if( err ) {
               def.reject(err);

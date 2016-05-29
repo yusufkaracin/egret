@@ -1,0 +1,83 @@
+<div class="contentProgressPage">
+  <div class="row">
+    <div class="col-lg-4">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h1 class="panel-title text-center">TODO</h1>
+        </div>
+        <div class="panel-body">
+          <div class="well" ng-repeat="t in tasks">
+            <p class="lead"><input type="checkbox" ng-checked="checkingTask()">   {{t.taskName}}</p>
+            <p>
+              <span ng-repeat="tm in t.members">{{tm}} <br> </span> 
+            </p>
+            <small><i class="fa fa-clock-o"></i> &nbsp; {{t.projectEndDate}}</small>
+          </div>
+        </div>
+        <div class="panel-footer">
+          <a href="javascript:;" data-toggle="modal" data-target="#myModal2" class="btn btn-default btn-sm btn-block">
+            task oluştur
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="panel panel-warning">
+        <div class="panel-heading">
+          <h1 class="panel-title text-center">IN PROGRESS</h1>
+        </div>
+        <div class="panel-body">
+          
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-4">
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          <h1 class="panel-title text-center">DONE</h1>
+        </div>
+        <div class="panel-body">
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <form name="frm">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h4 class="modal-title" id="myModalLabel">Create Task Item</h4>
+        </div>
+        <div class="modal-body">
+
+          <div class="form-group">
+            <label for="taskname">Görev adı</label>
+            <input type="text" ng-model="params.taskName" class="form-control" id="taskname" required>
+          </div>
+
+          <div class="form-group">
+            <label for="taskname">Üyeler</label>
+            <select ng-options="item as item for item in users" multiple="" ng-model="params.members" name="" id="" class="form-control" required></select>
+          </div>
+
+          <div class="form-group">
+            <label for="projectEndDate"><i class="fa fa-calendar fa-fw"></i> Bitiş Zamanı </label>
+            <datepicker date-format="dd-MM-yyyy">
+              <input ng-model="params.projectEndDate" type="text" id="projectEndDate" class="form-control" required/>
+            </datepicker>
+          </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">İptal</button>
+          <button type="button" class="btn btn-primary" ng-click="addNewItem(params)" ng-disabled="frm.$invalid">Kaydet</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

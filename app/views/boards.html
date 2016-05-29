@@ -17,27 +17,28 @@
           <h4 class="text-muted">Yönettiğim Projeler</h4>
         </div>
       </div>
-      <div class="col-lg-3"  ng-repeat="p in createdProjectsByUser">
+      <div class="col-lg-3"  ng-repeat="(key, value) in createdProjectsByUser">
+
         <div class="panel panel-primary">
           <div class="panel-heading">
-            <h5 class="panel-title"> {{p.name}}</h5>
+            <h5 class="panel-title"><a ng-href="#/boarddetail/{{key}}"> {{value.name}} <i class="fa fa-arrow-right fa-pull-right"></i></a></h5>
           </div>
           <div class="panel-body">
-            {{p.desc | limitTo:100}}
+            {{value.desc | limitTo:100}}
             <hr>
             <div class="btn-group btn-group-justified" role="group" aria-label="...">
               <div class="btn-group btn-group-xs" role="group">
-                <button type="button" class="btn btn-default"  data-animation="tooltip" data-placement="bottom" title="{{p.startDate}} ">
+                <button type="button" class="btn btn-default"  data-animation="tooltip" data-placement="bottom" title="{{value.startDate}} ">
                   <i class="fa fa-hourglass-start"></i>
                 </button>
               </div>
               <div class="btn-group btn-group-xs" role="group">
-                <button type="button" class="btn btn-default"  data-animation="tooltip" data-placement="bottom" title="{{p.endDate}} ">
+                <button type="button" class="btn btn-default"  data-animation="tooltip" data-placement="bottom" title="{{value.endDate}} ">
                   <i class="fa fa-hourglass-end"></i>
                 </button>
               </div>
               <div class="btn-group btn-group-xs" role="group">
-                <button type="button" class="btn btn-default"  data-animation="tooltip" data-placement="bottom" title="{{p.members.length}} ">
+                <button type="button" class="btn btn-default"  data-animation="tooltip" data-placement="bottom" title="{{value.members.length}} ">
                   <i class="fa fa-users"></i>
                 </button>
               </div>
@@ -57,8 +58,38 @@
             <h4 class="text-muted">Katıldığım projeler</h4>
           </div>
         </div>
-        <div class="col-lg-3">
-          
+        <div class="col-lg-3"  ng-repeat="p in projectsByInUser">
+          <div class="panel panel-primary">
+            <div class="panel-heading">
+              <h5 class="panel-title"> {{p.name}}</h5>
+            </div>
+            <div class="panel-body">
+              {{p.desc | limitTo:100}}
+              <hr>
+              <div class="btn-group btn-group-justified" role="group" aria-label="...">
+                <div class="btn-group btn-group-xs" role="group">
+                  <button type="button" class="btn btn-default"  data-animation="tooltip" data-placement="bottom" title="{{p.startDate}} ">
+                    <i class="fa fa-hourglass-start"></i>
+                  </button>
+                </div>
+                <div class="btn-group btn-group-xs" role="group">
+                  <button type="button" class="btn btn-default"  data-animation="tooltip" data-placement="bottom" title="{{p.endDate}} ">
+                    <i class="fa fa-hourglass-end"></i>
+                  </button>
+                </div>
+                <div class="btn-group btn-group-xs" role="group">
+                  <button type="button" class="btn btn-default"  data-animation="tooltip" data-placement="bottom" title="{{p.members.length}} ">
+                    <i class="fa fa-users"></i>
+                  </button>
+                </div>
+                <script>
+                  $(document).ready(function (arguments) {
+                    $('[data-animation="tooltip"]').tooltip();
+                  });
+                </script>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -102,17 +133,13 @@
             <datepicker date-format="dd-MM-yyyy">
               <input ng-model="params.projectStartDate" type="text" id="projectStartDate" class="form-control"/>
             </datepicker>
-
           </div>
 
           <div class="form-group">
-            <label for="projectEndDate">Bitiş Zamanı</label>
-            <div class="input-group">
-              <div class="input-group-addon"><i class="fa fa-calendar fa-fw"></i></div>
-              <datepicker date-format="dd-MM-yyyy">
-                <input ng-model="params.projectEndDate" type="text" id="projectEndDate" class="form-control"/>
-              </datepicker>
-            </div>
+            <label for="projectEndDate"><i class="fa fa-calendar fa-fw"></i> Bitiş Zamanı </label>
+            <datepicker date-format="dd-MM-yyyy">
+              <input ng-model="params.projectEndDate" type="text" id="projectEndDate" class="form-control"/>
+            </datepicker>
           </div>
           <!-- <div class="checkbox">
             <label>

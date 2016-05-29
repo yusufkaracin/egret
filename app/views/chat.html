@@ -1,13 +1,30 @@
+<div class="chat-page">
 
-<h2>Chat</h2>
+  <div id="messages" class="panel panel-default" style="max-height: 700px; overflow-y: auto;">
+    <div class="panel-body" ng-if="!loadingMore">
+      <p class="text-primary text-center" ng-click="loadMore()">Daha eski...</p>
 
-<form>
-  <input placeholder="Message..." ng-model="newMessage">
-  <button type="submit" ng-click="addMessage(newMessage);newMessage = null;">send</button>
-</form>
+      <div class="alert" id="{{$last ? 'last-message' : $index + '-msg'}}"
+      ng-class="{'alert-success': userName==m.username, 'alert-warning': userName!=m.username}"ng-repeat="m in messages" >
+        <p class="lead"><i class="fa fa-user fa-fw"></i> {{m.username}} </p>
+        <p>{{m.text}}</p> 
+        <small style="font-size:10px;"><i class="fa fa-clock-o"></i> {{m.createdDate | date: 'd MMM H:mm'}}</small>
+      
+      </div>
+    </div>
+    <div class="panel-body text-center" ng-if="loadingMore">
+      <h1 class="text-primary">
+        <i class="fa fa-spinner fa-pulse fa-2x fa-fw"></i>
+      </h1>
+      <p class="text-primary">Yükleniyor...</p>
+    </div>
+  </div>
 
-<ul id="messages" ng-show="messages.length">
-  <li ng-repeat="message in messages | reverse">{{message.text}}</li>
-</ul>
 
-<p class="alert alert-danger" ng-show="err">{{err}}</p>
+  <form>
+    <input autofocus placeholder="mesaj..." ng-model="newMessage" class="form-control"/>
+    <br>
+    <button type="submit" class="btn btn-default btn-block" ng-click="addMessage(newMessage);newMessage = null;">gönder <i class="fa fa-send fa-fw"></i></button>
+  </form>
+  <p class="alert alert-danger" ng-show="err">{{err}}</p>
+</div>
