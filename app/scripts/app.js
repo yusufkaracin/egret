@@ -19,4 +19,5 @@ angular.module('salihcandusmezApp', [
     'toaster',
     'angular-loading-bar',
     '720kb.datepicker',
+    'ngDragDrop'
   ]);

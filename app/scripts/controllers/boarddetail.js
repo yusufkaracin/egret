@@ -5,7 +5,7 @@ angular.module('salihcandusmezApp')
     
     var projectId = $routeParams.id;
 
-    var query = $firebaseObject(Ref.child('projects/' + projectId))
+    var query = $firebaseObject(Ref.child('projects/' + projectId));
     
     $scope.users = [];
     query.$loaded()
@@ -15,9 +15,6 @@ angular.module('salihcandusmezApp')
       .catch(function(error) {
         console.log("Error:", error);
       });
-    
-
-    
 
     $scope.tasks =  $firebaseObject(Ref.child('tasks').orderByChild("projectId").equalTo(projectId));
 
@@ -32,10 +29,14 @@ angular.module('salihcandusmezApp')
 
       tasks.$add(taskInfo)
         .then(function (projectRef) {
-          toaster.pop('success', 'Başarılı', 'Proje çok güzel oluştu');
+          toaster.pop('success', 'Başarılı', 'Görev çok güzel oluştu');
       })
         .catch(function (ref) {
-          toaster.pop('error', 'Başarısız', 'Proje çok güzel oluşturulamadı');
+          toaster.pop('error', 'Başarısız', 'Görev çok güzel oluşturulamadı');
       });
     };
+
+    $scope.checkingTask = function () {
+      
+    }
   });

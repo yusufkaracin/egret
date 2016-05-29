@@ -1,13 +1,14 @@
 <div class="contentProgressPage">
   <div class="row">
-    <div class="col-lg-4">
+    <div class="col-lg-4" data-drop="true" data-jqyoui-options jqyoui-droppable>
       <div class="panel panel-primary">
         <div class="panel-heading">
-          <h1 class="panel-title text-center">TODO</h1>
+          <h1 class="panel-title text-center ">TODO</h1>
         </div>
-        <div class="panel-body">
-          <div class="well" ng-repeat="t in tasks">
-            <p class="lead"><input type="checkbox" ng-checked="checkingTask()">   {{t.taskName}}</p>
+        <div class="panel-body ui-widget-content">
+          <div class="well" ng-repeat="t in tasks" data-drag="true"
+               data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{animate:true}">
+            <p class="lead"><input type="checkbox" ng-checked="checkingTask()" ng-model="isChecked" >{{t.taskName}}</p>
             <p>
               <span ng-repeat="tm in t.members">{{tm}} <br> </span> 
             </p>
@@ -21,12 +22,12 @@
         </div>
       </div>
     </div>
-    <div class="col-lg-4">
+    <div class="col-lg-4" data-drop="true" data-jqyoui-options jqyoui-droppable>
       <div class="panel panel-warning">
         <div class="panel-heading">
           <h1 class="panel-title text-center">IN PROGRESS</h1>
         </div>
-        <div class="panel-body">
+        <div class="panel-body ui-widget-content">
           
         </div>
       </div>
@@ -36,7 +37,7 @@
         <div class="panel-heading">
           <h1 class="panel-title text-center">DONE</h1>
         </div>
-        <div class="panel-body">
+        <div class="panel-body ui-widget-content">
           
         </div>
       </div>
@@ -75,9 +76,16 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-default" data-dismiss="modal">İptal</button>
-          <button type="button" class="btn btn-primary" ng-click="addNewItem(params)" ng-disabled="frm.$invalid">Kaydet</button>
+          <button type="button" id="addNewTaskBtn" class="btn btn-primary" ng-click="addNewItem(params)" ng-disabled="frm.$invalid">Kaydet</button>
         </div>
       </form>
     </div>
   </div>
 </div>
+<script>
+  $(function () {
+    $("#addNewTaskBtn").on("click", function () {
+      $("#myModal2").modal('hide');
+    });
+  });
+</script>
