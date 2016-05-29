@@ -25,6 +25,7 @@ angular.module('salihcandusmezApp')
           var isUserProjectOwner = (value.owner == user.uid);
 
           if (isUserInProject && !isUserProjectOwner) {
+            value.key = key;
             $scope.projectsByInUser.push(value);
           }
         })

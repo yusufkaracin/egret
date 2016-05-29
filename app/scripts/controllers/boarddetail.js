@@ -1,16 +1,18 @@
 'use strict';
 
 angular.module('salihcandusmezApp')
-  .controller('BoarddetailCtrl', function ($scope, $firebaseObject, Ref, $routeParams, $firebaseArray, toaster) {
+  .controller('BoarddetailCtrl', function ($scope, $firebaseObject, Ref, $routeParams, $firebaseArray, toaster, user) {
     
     var projectId = $routeParams.id;
-
-    var query = $firebaseObject(Ref.child('projects/' + projectId));
     
+    $scope.isProjectOwner = false;
+    
+    var query = $firebaseObject(Ref.child('projects/' + projectId));
     $scope.users = [];
     query.$loaded()
       .then(function(project) {
-        $scope.users = project.members
+        $scope.users = project.members;
+        $scope.isProjectOwner = (user.uid == project.owner);
       })
       .catch(function(error) {
         console.log("Error:", error);
@@ -23,7 +25,8 @@ angular.module('salihcandusmezApp')
         projectId: projectId,
         taskName: params.taskName,
         projectEndDate: params.projectEndDate,
-        members: params.members
+        members: params.members,
+        detail: params.taskDetail
       };
       var tasks = $firebaseArray(Ref.child('tasks/'));
 
@@ -35,12 +38,15 @@ angular.module('salihcandusmezApp')
           toaster.pop('error', 'Başarısız', 'Görev çok güzel oluşturulamadı');
       });
     };
-    $scope.deleteTask = function (id) {
-      var query = $firebaseObject(Ref.child('tasks/' + id));
-      query.$remove().then(function (ref) {
-        toaster.pop('info', 'Başarılı', 'Görev çok güzel silindi');
-      }).catch(function (err) {
-        toaster.pop('error', 'Hata', 'Görev çok güzel silinemedi');
-      });
+    $scope.deleteTask = function (id, title) {
+      if(confirm(title + ' görevini siliyorsunuz?')) {
+        var query = $firebaseObject(Ref.child('tasks/' + id));
+        query.$remove().then(function (ref) {
+          toaster.pop('info', 'Başarılı', title + 'çok güzel silindi');
+        }).catch(function (err) {
+          toaster.pop('error', 'Hata', title + 'çok güzel silinemedi');
+        });
+      }
     };
+
   });

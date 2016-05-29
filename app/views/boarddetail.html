@@ -1,31 +1,37 @@
 <div class="contentProgressPage">
   <div class="row">
-    <div class="col-lg-4" data-drop="true" data-jqyoui-options jqyoui-droppable>
+    <div class="col-lg-4" data-drop="true">
       <div class="panel panel-primary">
         <div class="panel-heading">
-          <h1 class="panel-title text-center ">TODO</h1>
+          <h1 class="panel-title text-center ">YAPILACAKLAR</h1>
         </div>
-        <div class="panel-body connectedSortable" id="sortable1" style="min-height:500px;">
+        <div class="panel-body" id="sortable1" ng-class="{connectedSortable: isProjectOwner}"
+             style="min-height:{{isProjectOwner ? '500px;' : '549px;'}}">
           <div class="well ui-state-default" ng-repeat="(key, t) in tasks">
-            <p class="lead">{{t.taskName}}</p>
-            <p>
-              <span ng-repeat="tm in t.members">{{tm}} <br> </span> 
-            </p>
-            <small><i class="fa fa-clock-o"></i> &nbsp; {{t.projectEndDate}} 
-            <button ng-click="deleteTask(key)" class="btn btn-danger pull-right btn-xs"><i class="fa fa-trash"></i></button></small>
+            <p class="lead text-center"><strong>{{t.taskName}}</strong></p>
+            <p><em>{{t.detail}}</em></p>
+            <i class="fa fa-users fa-fw"></i> <strong>Ekip</strong>
+            <ul ng-repeat="tm in t.members">
+              <li>{{tm}}</li>
+            </ul>
+            <i class="fa fa-clock-o fa-fw"></i> <strong>Bitiş</strong>
+            {{t.projectEndDate}}
+            <button ng-click="deleteTask(key, t.taskName)" class="btn btn-danger pull-right btn-xs" ng-if="isProjectOwner">
+              <i class="fa fa-trash"></i>
+            </button>
           </div>
         </div>
-        <div class="panel-footer">
+        <div class="panel-footer" ng-if="isProjectOwner">
           <a href="javascript:;" data-toggle="modal" data-target="#myModal2" class="btn btn-default btn-sm btn-block">
-            task oluştur
+            <i class="fa fa-plus fa-fw"></i>YENİ GÖREV
           </a>
         </div>
       </div>
     </div>
-    <div class="col-lg-4" data-drop="true" data-jqyoui-options jqyoui-droppable>
+    <div class="col-lg-4">
       <div class="panel panel-warning">
         <div class="panel-heading">
-          <h1 class="panel-title text-center">IN PROGRESS</h1>
+          <h1 class="panel-title text-center">DEVAM EDENLER</h1>
         </div>
         <div class="panel-body connectedSortable" id="sortable2" style="min-height:549px;">
           
@@ -35,7 +41,7 @@
     <div class="col-lg-4">
       <div class="panel panel-success">
         <div class="panel-heading">
-          <h1 class="panel-title text-center">DONE</h1>
+          <h1 class="panel-title text-center">TAMAMLANDI</h1>
         </div>
         <div class="panel-body connectedSortable" id="sortable3" style="min-height:549px;">
             
@@ -62,8 +68,14 @@
           </div>
 
           <div class="form-group">
-            <label for="taskname">Üyeler</label>
-            <select ng-options="item as item for item in users" multiple="" ng-model="params.members" name="" id="" class="form-control" required></select>
+            <label for="taskDetail">Görev Açıklaması</label>
+            <textarea rows="3" ng-model="params.taskDetail" class="form-control" id="taskDetail" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="taskmembers">Üyeler</label>
+            <select ng-options="item as item for item in users" multiple="" ng-model="params.members"
+                    id="taskmembers" class="form-control" required></select>
           </div>
 
           <div class="form-group">

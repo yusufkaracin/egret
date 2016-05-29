@@ -14,57 +14,54 @@
   <div class="tab-content">
     <br>
     <div role="tabpanel" class="tab-pane active" id="home">
-      <h4 class="text-center">Welcome</h3>
+      <h4 class="text-center">Selam</h3>
       <form role="form" name="frm1">
         <p class="form-group">
           <input required name="email" placeholder="email" type="email" ng-model="email" class="form-control" />
         </p>
         <p class="form-group">
-          <input required name="pass" placeholder="password" type="password" ng-model="pass" class="form-control" />
+          <input required name="pass" placeholder="şifre" type="password" ng-model="pass" class="form-control" />
         </p>
         <div class="checkbox">
           <label>
-            <input type="checkbox" ng-init="rememberMe = true" ng-model="rememberMe" ng-checked="rememberMe"> Remember Me
+            <input type="checkbox" ng-init="rememberMe = true" ng-model="rememberMe" ng-checked="rememberMe"> Hatırla
           </label>
         </div>
         <p>
           <button  class="btn btn-primary btn-block" ng-click="passwordLogin(email, pass, rememberMe)" ng-disabled="frm1.$invalid">  
-            Log In
+            Giriş
           </button>
 
-          <a href="#" class="btn btn-link btn-block">
-            Forgot password
-          </a>
         </p>
       </form>
-      <a href="" data-toggle="modal" data-target="#myModal"class="makePreventDefault btn btn-default pull-right">
+      <a href="" data-toggle="modal" data-target="#myModal" class="makePreventDefault btn btn-default pull-right">
         <span class="glyphicon glyphicon-question-sign"></span>
       </a>
       <!-- <p ng-show="err" class="bg-danger">{{err}}</p> -->
     </div>
     <div role="tabpanel" class="tab-pane" id="profile">
-      <h4 class="text-center">Welcome</h3>
+      <h4 class="text-center">Hoşgeldin</h3>
       <form role="form" name="frm2">
         <p class="form-group">
-          <input required name="userName" placeholder="userName"  type="text" ng-model="userName" class="form-control" />
+          <input required name="userName" placeholder="kullanıcı adı"  type="text" ng-model="userName" class="form-control" />
         </p>
         <p class="form-group">
           <input required name="email" placeholder="email"  type="email" ng-model="email" class="form-control" />
         </p>
         <p class="form-group">
-          <input required name="pass" placeholder="password"  type="password" ng-model="pass" class="form-control" />
+          <input required name="pass" placeholder="şifre"  type="password" ng-model="pass" class="form-control" />
         </p>
         <p class="form-group">
-          <input required name="confirm" placeholder="confirm password" type="password" ng-model="confirm" class="form-control" />
+          <input required name="confirm" placeholder="şifre tekrar" type="password" ng-model="confirm" class="form-control" />
         </p>
         <p>
           <button  class="btn btn-primary" ng-disabled="frm2.$invalid" ng-click="createAccount(email, pass, confirm, userName)">
-            Create Account
+            Kayıt Ol
           </button>
         </p>
       </form>
 
-      <a href="" data-toggle="modal" data-target="#myModal2"class="makePreventDefault btn btn-default pull-right">
+      <a href="" data-toggle="modal" data-target="#myModal2" class="makePreventDefault btn btn-default pull-right">
         <span class="glyphicon glyphicon-question-sign"></span>
       </a>
     </div>
