@@ -18,6 +18,5 @@ angular.module('salihcandusmezApp', [
     'firebase.auth',
     'toaster',
     'angular-loading-bar',
-    '720kb.datepicker',
-    'ngDragDrop'
+    '720kb.datepicker'
   ]);

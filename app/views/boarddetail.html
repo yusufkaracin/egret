@@ -5,14 +5,14 @@
         <div class="panel-heading">
           <h1 class="panel-title text-center ">TODO</h1>
         </div>
-        <div class="panel-body ui-widget-content">
-          <div class="well" ng-repeat="t in tasks" data-drag="true"
-               data-jqyoui-options="{revert: 'invalid'}" jqyoui-draggable="{animate:true}">
-            <p class="lead"><input type="checkbox" ng-checked="checkingTask()" ng-model="isChecked" >{{t.taskName}}</p>
+        <div class="panel-body connectedSortable" id="sortable1" style="min-height:500px;">
+          <div class="well ui-state-default" ng-repeat="(key, t) in tasks">
+            <p class="lead">{{t.taskName}}</p>
             <p>
               <span ng-repeat="tm in t.members">{{tm}} <br> </span> 
             </p>
-            <small><i class="fa fa-clock-o"></i> &nbsp; {{t.projectEndDate}}</small>
+            <small><i class="fa fa-clock-o"></i> &nbsp; {{t.projectEndDate}} 
+            <button ng-click="deleteTask(key)" class="btn btn-danger pull-right btn-xs"><i class="fa fa-trash"></i></button></small>
           </div>
         </div>
         <div class="panel-footer">
@@ -27,7 +27,7 @@
         <div class="panel-heading">
           <h1 class="panel-title text-center">IN PROGRESS</h1>
         </div>
-        <div class="panel-body ui-widget-content">
+        <div class="panel-body connectedSortable" id="sortable2" style="min-height:549px;">
           
         </div>
       </div>
@@ -37,8 +37,8 @@
         <div class="panel-heading">
           <h1 class="panel-title text-center">DONE</h1>
         </div>
-        <div class="panel-body ui-widget-content">
-          
+        <div class="panel-body connectedSortable" id="sortable3" style="min-height:549px;">
+            
         </div>
       </div>
     </div>
@@ -87,5 +87,10 @@
     $("#addNewTaskBtn").on("click", function () {
       $("#myModal2").modal('hide');
     });
+
+    $( "#sortable1, #sortable2, #sortable3").sortable({
+      connectWith: ".connectedSortable"
+    }).disableSelection();
+
   });
 </script>

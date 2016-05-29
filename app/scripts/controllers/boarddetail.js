@@ -35,8 +35,12 @@ angular.module('salihcandusmezApp')
           toaster.pop('error', 'Başarısız', 'Görev çok güzel oluşturulamadı');
       });
     };
-
-    $scope.checkingTask = function () {
-      
-    }
+    $scope.deleteTask = function (id) {
+      var query = $firebaseObject(Ref.child('tasks/' + id));
+      query.$remove().then(function (ref) {
+        toaster.pop('info', 'Başarılı', 'Görev çok güzel silindi');
+      }).catch(function (err) {
+        toaster.pop('error', 'Hata', 'Görev çok güzel silinemedi');
+      });
+    };
   });
